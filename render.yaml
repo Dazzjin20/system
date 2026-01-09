@@ -4,8 +4,9 @@ services:
     env: node
     region: oregon
     branch: main
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && npm start
+    root: backend
+    buildCommand: npm install
+    startCommand: npm start
     envVars:
       - key: MONGO_URI
         value: ""
