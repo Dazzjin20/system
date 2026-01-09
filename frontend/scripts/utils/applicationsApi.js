@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:3000/api/applications';
+const BASE = (window.API_BASE_URL || 'http://localhost:3000/api') + '/applications';
 
 export async function getAllApplications() {
   const res = await fetch(BASE);

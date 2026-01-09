@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:3000/api/activitylogs';
+const BASE = (window.API_BASE_URL || 'http://localhost:3000/api') + '/activitylogs';
 
 export async function createActivityLog(data) {
   const res = await fetch(BASE, {

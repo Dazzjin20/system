@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:3000/api/pets';
+const BASE = (window.API_BASE_URL || 'http://localhost:3000/api') + '/pets';
 
 export async function getPets(params = {}) {
   const url = new URL(BASE);

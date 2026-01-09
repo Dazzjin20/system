@@ -47,7 +47,7 @@ async function initVolunteerSchedule() {
 
 async function fetchAndProcessTasks() {
     try {
-        const API_URL = 'http://localhost:3000/api';
+        const API_URL = window.API_BASE_URL || 'http://localhost:3000/api';
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         
         if (!currentUser) {

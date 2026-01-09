@@ -1,5 +1,5 @@
 // /frontend/scripts/utils/adopterPetsApi.js
-const BASE = 'http://localhost:3000/api/pets';
+const BASE = (window.API_BASE_URL || 'http://localhost:3000/api') + '/pets';
 
 export async function getPetsForAdopter(params = {}) {
   const url = new URL(BASE);

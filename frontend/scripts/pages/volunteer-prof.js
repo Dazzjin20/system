@@ -233,7 +233,7 @@ class VolunteerProfile {
             console.log('Attempting to save to database...', updatedData);
 
             // Try the adopter-style endpoint pattern since it works for adopters
-            const endpoint = `http://localhost:3000/api/auth/profile/volunteer/${userId}`;
+            const endpoint = `${window.API_BASE_URL || 'http://localhost:3000/api'}/auth/profile/volunteer/${userId}`;
             console.log('Using endpoint:', endpoint);
 
             const response = await fetch(endpoint, {

@@ -13,7 +13,12 @@ const medicalRecordRoutes = require('./routes/medicalRecordRoutes');
 const staffRoutes = require('./routes/staffRoutes');
 
 const app = express();
-app.use(cors());
+const FRONTEND_URL = process.env.FRONTEND_URL;
+if (FRONTEND_URL) {
+  app.use(cors({ origin: FRONTEND_URL }));
+} else {
+  app.use(cors());
+}
 // Accept larger JSON payloads for base64 image uploads
 app.use(express.json({ limit: '12mb' }));
 // Also support URL-encoded form bodies at larger size
@@ -49,13 +54,27 @@ app.use('/api/medical', medicalRecordRoutes);
 // Mount staff routes
 app.use('/api/staff', staffRoutes);
 
+// Health endpoint for load balancers / hosting providers
+app.get('/health', async (req, res) => {
+  try {
+    const dbStatus = await db.healthCheck();
+    res.json({ status: 'ok', db: dbStatus });
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 async function startServer() {
   try {
     await db.connect(); // Use your database class to connect
     app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
+      if (process.env.NODE_ENV === 'production') {
+        console.log(`Server is running on port ${PORT}`);
+      } else {
+        console.log(`Server is running on http://localhost:${PORT}`);
+      }
     });
   } catch (error) {
     console.error('Failed to start server:', error);

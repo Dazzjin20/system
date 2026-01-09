@@ -1,0 +1,18 @@
+services:
+  - type: web_service
+    name: pet-adoption-backend
+    env: node
+    region: oregon
+    branch: main
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: MONGO_URI
+        value: ""
+      - key: JWT_SECRET
+        value: ""
+      - key: FRONTEND_URL
+        value: ""
+      - key: NODE_ENV
+        value: "production"
+    healthCheckPath: /health

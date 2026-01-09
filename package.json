@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build:frontend": "node frontend/scripts/set_api_base.js"
+  },
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0"

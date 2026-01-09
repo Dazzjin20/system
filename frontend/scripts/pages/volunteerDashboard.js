@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateWelcomeMessage(currentUser);
     loadDashboardData(currentUser._id);
+    setupEventListeners(); // Call this to attach button click events
 });
 
 function updateWelcomeMessage(user) {
@@ -23,8 +24,8 @@ async function loadDashboardData(volunteerId) {
     try {
         // Fetch all tasks
         const [staffTasksRes, careTasksRes] = await Promise.all([
-            fetch('http://localhost:3000/api/staff-tasks'),
-            fetch('http://localhost:3000/api/tasks')
+            fetch((window.API_BASE_URL || 'http://localhost:3000/api') + '/staff-tasks'),
+            fetch((window.API_BASE_URL || 'http://localhost:3000/api') + '/tasks')
         ]);
 
         if (!staffTasksRes.ok || !careTasksRes.ok) {
@@ -116,5 +117,26 @@ function updatePerformanceSummary(tasks) {
         item.className = 'mb-2';
         item.innerHTML = `✔ Completed: <strong>${task.title}</strong>`;
         performanceList.appendChild(item);
+    });
+}
+
+function setupEventListeners() {
+    // View full schedule button
+    const viewScheduleBtn = document.getElementById('viewFullScheduleBtn');
+    if (viewScheduleBtn) {
+        viewScheduleBtn.addEventListener('click', function() {
+            // Redirect to schedule page
+            window.location.href = 'volunteer-schedule.html';
+        });
+    }
+
+    // Schedule items click events (optional interaction)
+    const scheduleItems = document.querySelectorAll('.volunteer-schedule-item');
+    scheduleItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            // You can add logic here if you want items to be clickable
+            // const task = this.querySelector('.fw-semibold').textContent;
+            // console.log('Clicked task:', task);
+        });
     });
 }

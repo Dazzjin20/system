@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // API function (same as your staff page)
 async function getPets(params = {}) {
-    const BASE = 'http://localhost:3000/api/pets';
+    const BASE = (window.API_BASE_URL || 'http://localhost:3000/api') + '/pets';
     const url = new URL(BASE);
     Object.entries(params).forEach(([k, v]) => {
         if (v !== undefined && v !== null) url.searchParams.append(k, v);

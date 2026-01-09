@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = window.API_BASE_URL || 'http://localhost:3000/api';
 
 /**
  * Fetches all care tasks from the backend.

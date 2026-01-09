@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:3000/api';
+const BASE = window.API_BASE_URL || 'http://localhost:3000/api';
 
 export async function getStaffProfile(staffId) {
   const res = await fetch(`${BASE}/staff/${staffId}`);

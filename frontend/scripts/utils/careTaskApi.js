@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:3000/api/tasks';
+const BASE = (window.API_BASE_URL || 'http://localhost:3000/api') + '/tasks';
 
 export async function getTasks() {
   const res = await fetch(BASE);
